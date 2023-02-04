@@ -9,6 +9,10 @@ class Group(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     description = models.TextField()
 
+    class Meta:
+        verbose_name = "Группа"
+        verbose_name_plural = "Группы"
+
     def __str__(self):
         return self.title
 
@@ -23,6 +27,10 @@ class Post(models.Model):
     group = models.ForeignKey(
         Group, null=True, on_delete=models.SET_NULL, related_name='posts'
     )
+
+    class Meta:
+        verbose_name = "Пост"
+        verbose_name_plural = "Посты"
 
     def __str__(self):
         return self.text
@@ -39,6 +47,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
         return self.text
@@ -62,6 +72,8 @@ class Follow(models.Model):
                 fields=['user', 'following'],
                 name='unique follow')
         ]
+        verbose_name = 'Подписчик'
+        verbose_name_plural = 'Подписчики'
 
     def __str__(self):
         return f"""На автора {self.following} подписан {self.user}"""
